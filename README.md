@@ -1,5 +1,4 @@
-Progress report: chatbot 
-===
+## Progress report: chatbot 
 
 [Documentation link](http://dialogflow-python-client-v2.readthedocs.io/en/latest/?#using-dialogflow)
 
@@ -13,7 +12,7 @@ All of this is done on the Dialogflow website, not locally.
 * `Dialogflow` uses **training phrases** to help decide which intent will be used.
 * **Entities** are categories of words in training phrases that improve the accuracy of the matching.
 
-A brief example might be a bot that asks for your favourite colour. The bot first asks $\texttt{"What is your favourite colour?"}$, and has the following training phrases for the *colour* intent:
+A brief example might be a bot that asks for your favourite colour. The bot first asks "What is your favourite colour?", and has the following training phrases for the *colour* intent:
 
 * <span style="font-family:consolas">My favourite colour is red.</span>
 * <span style="font-family:consolas">I really like blue.</span>
@@ -23,43 +22,41 @@ A brief example might be a bot that asks for your favourite colour. The bot firs
 
 Entities are *categories* that help with matching the correct intent. You can choose words in your training phrases to place in entities. You can also use these entities in your response.
 
-To improve the accuracy of the bot, you can give `red`, `blue`, and `green`  the $\texttt{colour}$ entity.
+To improve the accuracy of the bot, you can give `red`, `blue`, and `green`  the colour entity.
 
 * <span style="font-family:consolas">My favourite colour is <span style="color:blue">red</span>.</span>
 * <span style="font-family:consolas">I really like <span style="color:blue">blue</span>.</span>
 * <span style="font-family:consolas"><span style="color:blue">Green</span> has always been a nice colour.</span>
 
-When responding, you can use `$colour` to refer to the colour they initially said.
+When responding, you can use `colour` to refer to the colour they initially said.
 
-The $\texttt{colour}$ entity now has the entries $\texttt{red}$, $\texttt{blue}$, and $\texttt{green}$. You can add **synonyms** for each entry (i.e. $\texttt{red} \iff \texttt{maroon}, \texttt{ruby}, \texttt{vermillion}$).
+The colour entity now has the entries red, blue, and green. You can add **synonyms** for each entry (i.e. red} maroon},ruby},vermillion).
 
 Apart from this intent, we also have the **default** intent, which runs when you start the bot, and the **fallback** intent, when the bot cannot match to any of the existing intents.
 
-You can also create **followup intents** that will match only when a previous intent was matched. For example, the $\texttt{colour-followup}$ intent could ask <b><span style="font-family:consolas">"Why is $colour your favourite colour?"</span></b>. 
+You can also create **followup intents** that will match only when a previous intent was matched. For example, the colour-followup intent could ask <b><span style="font-family:consolas">"Why is colour your favourite colour?"</span></b>. 
 
 ### Contexts
 
 **Contexts** store information from other intents, so the parameters can be used in other intents.
 
-When $B$ is an **input context** of $A$, that means $B$ will only be matched when $A$ was matched before. (Think of it like $A\implies B$.)
+When B is an **input context** of A, that means B will only be matched when A was matched before. (Think of it like A -> B.)
 
-When $D$ is an **output context** of $C$, that means when $C$ is matched, it sends its parameters (entities) to $D$ so $D$ can use them later (Also think of it like $D \implies C$.)
+When D is an **output context** of C, that means when C is matched, it sends its parameters (entities) to D so D can use them later (Also think of it like D  -> C.)
 
-In followup intents (i.e. $\texttt{colour (E)}$ $\implies$ $\texttt{colour-followup (F)}$), $E$ is automatically an input context of $F$, and $F$ is also automatically an output context of $E$.
+In followup intents (i.e. colour (E)  -> colour-followup (F)), E is automatically an input context of F, and F is also automatically an output context of E.
 
 ### Example
 
-Another example is a song player. We have $3$ intents, $\texttt{song}$, $\texttt{turn_on_song}$, and $\texttt{turn_off_song}$. The first one simply tells you which song is playing. 
+Another example is a song player. We have 3 intents, song, turn_on_song, and turn_off_song. The first one simply tells you which song is playing. 
 
-First, you call $\texttt{turn_on_song}$ with a phrase like "Play Africa by Toto". (In this case, Africa would be a Song entity and Toto an Artist entity.) If you want to know what song you're currently playing, match with the $\texttt{song}$ intent. The song name, however, is in $\texttt{turn_on_song}$, so we can add $\texttt{song}$ to $\texttt{turn_on_song}$'s **output intent** to send the parameters over.
+First, you call turn_on_song with a phrase like "Play Africa by Toto". (In this case, Africa would be a Song entity and Toto an Artist entity.) If you want to know what song you're currently playing, match with the song intent. The song name, however, is in turn_on_song, so we can add song to turn_on_song's **output intent** to send the parameters over.
 
-As for $\texttt{turn_off_song}$, which we call by "Turn it off", this should only be matched if  $\texttt{turn_on_song}$ was called earlier. So $\texttt{turn_on_song}$ becomes the input context of $\texttt{turn_off_song}$.
+As for turn_off_song, which we call by "Turn it off", this should only be matched if  turn_on_song was called earlier. So turn_on_song becomes the input context of turn_off_song.
 
 ## Using this bot
 
-:::info
-You cannot use the bot locally. It is on Google's API. Thus, you must create the bot **first**, then write a Python script to interact with it.
-:::
+Note: You cannot use the bot locally. It is on Google's API. Thus, you must create the bot **first**, then write a Python script to interact with it.
 
 0. Create a `virtualenv`. (Optional)
 1. `pip install dialogflow`
@@ -76,7 +73,7 @@ The current bot can differentiate between the three intents:
 
 ### Script
 
-This script is taken mostly from the documentation example. It simply reads in **user commands** (ที่ user จะพิมพ์เข้าไป) and tells you what the **intent** is.
+This script is taken mostly from the documentation example. It simply reads in **user commands** and tells you what the **intent** is.
 
 ```python=
 import dialogflow_v2 as dialogflow
@@ -115,7 +112,7 @@ while True:
 ### Demo
 
 ```
-D:\DD\bot\project>python agent.py
+>python agent.py
 Input a phrase: hi
 Query text: hi
 Detected intent: Default Welcome Intent (confidence: 1.0)
@@ -152,5 +149,4 @@ Fulfillment text: You, the dev leader, wanted the daily report. Am I correct?
 
 The script can connect to the bot and exchange information.
 
-The bot produces correct results most of the time, but its speed varies quite a bit. It is sometimes so slow that the connection will time out, causing the program to end. This is probably due to the volatile internet speed.
-
+The bot produces correct results most of the time, but its speed varies quite a bit. It is sometimes so slow that the connection will time out, causing the program to end.
